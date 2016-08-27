@@ -46,12 +46,17 @@ public class ArticleListActivity extends AppCompatActivity
 //      todo 5  listen when swipe
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+        // show a toolbar
         setSupportActionBar(mToolbar);
+
+//        but not showing the title in toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         int columnCount = getResources().getInteger(R.integer.grid_column_count);
+
+        // create a recyclerview with 2 columns
         StaggeredGridLayoutManager staggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -60,13 +65,20 @@ public class ArticleListActivity extends AppCompatActivity
         mAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mAdapter);
 
+        // call the loader to load the data from content provider to supply to the recyclerview
         getSupportLoaderManager().initLoader(0, null, this);
 
+        // if the first time openning the app, connect to service to download datas and save it to db
         if (savedInstanceState == null) {
             startService(new Intent(this, UpdaterService.class));
         }
     }
 
+    /**
+     * fixme - start refresh the data everytime the app is restart
+     *
+     * todo - tại sao register receiver rồi mà lại ko thấy sendBroadcast.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -74,6 +86,10 @@ public class ArticleListActivity extends AppCompatActivity
                 new IntentFilter(UpdaterService.BROADCAST_ACTION_STATE_CHANGE));
     }
 
+    /**
+     * fixme - because in onStart, I register Receiver, so in onStop I must unregister it
+     * cause when the app is not see anymore, it doesn't need to update the UI.
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -90,11 +106,22 @@ public class ArticleListActivity extends AppCompatActivity
         }
     };
 
+    /**
+     * create the cursor loader by create the constructor of cursor loader
+     * @param i
+     * @param bundle
+     * @return
+     */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return ArticleLoader.newAllArticlesInstance(this);
     }
 
+    /**
+     *
+     * @param cursorLoader
+     * @param cursor
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         mAdapter.swapCursor(cursor);

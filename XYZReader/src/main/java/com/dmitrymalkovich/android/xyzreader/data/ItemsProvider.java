@@ -16,6 +16,9 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * todo 8 - make a content provider
+ */
 public class ItemsProvider extends ContentProvider {
     private SQLiteOpenHelper mOpenHelper;
     private Context mContext;

@@ -6,6 +6,8 @@ import android.support.v4.content.CursorLoader;
 
 /**
  * Helper for loading a list of articles or a single article.
+ *
+ * todo 9 - create the custome CursorLoader
  */
 public class ArticleLoader extends CursorLoader {
     public static ArticleLoader newAllArticlesInstance(Context context) {

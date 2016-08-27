@@ -59,6 +59,7 @@ public class UpdaterService extends IntentService {
         // Don't even inspect the intent, we only do one thing, and that's fetch content.
         /**
          * ContentProviderOperation: is used to create, update, delete a set of data in a batch
+         * @see <a href="http://www.grokkingandroid.com/better-performance-with-contentprovideroperation/"></a>
          */
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
 
