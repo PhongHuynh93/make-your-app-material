@@ -57,6 +57,9 @@ public class UpdaterService extends IntentService {
                 new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 
         // Don't even inspect the intent, we only do one thing, and that's fetch content.
+        /**
+         * ContentProviderOperation: is used to create, update, delete a set of data in a batch
+         */
         ArrayList<ContentProviderOperation> cpo = new ArrayList<ContentProviderOperation>();
 
         Uri dirUri = ItemsContract.Items.buildDirUri();
@@ -80,20 +83,24 @@ public class UpdaterService extends IntentService {
                 time.parse3339(object.getString("published_date"));
                 values.put(ItemsContract.Items.PUBLISHED_DATE, time.toMillis(false));
 
+                // get the data from content provider
                 Long id = Long.valueOf(object.getString("id"));
                 Cursor cursor = getContentResolver().query(ItemsContract.Items.buildDirUri(),
                         ArticleLoader.Query.PROJECTION, ItemsContract.Items.SERVER_ID + "=" + id,
                         null, null);
 
+                // insert in data
                 if (cursor == null || !cursor.moveToFirst()) {
                     cpo.add(ContentProviderOperation.newInsert(dirUri).withValues(values).build());
                 }
 
+                // close the cursor
                 if (cursor != null && !cursor.isClosed()) {
                     cursor.close();
                 }
             }
 
+            // start doing bath all data
             getContentResolver().applyBatch(ItemsContract.CONTENT_AUTHORITY, cpo);
 
         } catch (JSONException | RemoteException | OperationApplicationException e) {
