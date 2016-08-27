@@ -9,6 +9,7 @@ public class ItemsContract {
     public static final String CONTENT_AUTHORITY = "com.dmitrymalkovich.android.xyzreader";
     public static final Uri BASE_URI = Uri.parse("content://com.dmitrymalkovich.android.xyzreader");
 
+//    todo 7b - the column for this table
     interface ItemsColumns {
         /**
          * Type: INTEGER PRIMARY KEY AUTOINCREMENT
@@ -48,6 +49,7 @@ public class ItemsContract {
         String PUBLISHED_DATE = "published_date";
     }
 
+    // todo 7c - make an uri for this content provider
     public static class Items implements ItemsColumns {
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.com.dmitrymalkovich.android.xyzreader.items";
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.com.dmitrymalkovich.android.xyzreader.items";
