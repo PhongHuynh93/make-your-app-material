@@ -21,6 +21,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * todo 6 make a started service
+ */
 public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
 
@@ -33,10 +36,15 @@ public class UpdaterService extends IntentService {
         super(TAG);
     }
 
+    /**
+     * todo 6b - call this method, this will run in the new thread
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Time time = new Time();
 
+        // check network connection
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null || !ni.isConnected()) {
@@ -44,6 +52,7 @@ public class UpdaterService extends IntentService {
             return;
         }
 
+        // if there is an active network, send broadcast
         sendStickyBroadcast(
                 new Intent(BROADCAST_ACTION_STATE_CHANGE).putExtra(EXTRA_REFRESHING, true));
 

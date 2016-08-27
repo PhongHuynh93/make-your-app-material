@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.dmitrymalkovich.android.xyzreader.R;
 import com.dmitrymalkovich.android.xyzreader.data.ArticleLoader;
@@ -29,6 +27,7 @@ import butterknife.ButterKnife;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
+//todo 4
 public class ArticleListActivity extends AppCompatActivity
         implements SwipeRefreshLayout.OnRefreshListener,
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -44,6 +43,7 @@ public class ArticleListActivity extends AppCompatActivity
         setContentView(R.layout.activity_article_list);
         ButterKnife.bind(this);
 
+//      todo 5  listen when swipe
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         setSupportActionBar(mToolbar);
@@ -105,6 +105,7 @@ public class ArticleListActivity extends AppCompatActivity
         mAdapter.swapCursor(null);
     }
 
+//    todo 5b - when swipe, call this method
     @Override
     public void onRefresh() {
         startService(new Intent(this, UpdaterService.class));

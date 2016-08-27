@@ -2,6 +2,9 @@ package com.dmitrymalkovich.android.xyzreader.data;
 
 import android.net.Uri;
 
+/**
+ * todo 7 - make an constract, contains columns for db
+ */
 public class ItemsContract {
     public static final String CONTENT_AUTHORITY = "com.dmitrymalkovich.android.xyzreader";
     public static final Uri BASE_URI = Uri.parse("content://com.dmitrymalkovich.android.xyzreader");
