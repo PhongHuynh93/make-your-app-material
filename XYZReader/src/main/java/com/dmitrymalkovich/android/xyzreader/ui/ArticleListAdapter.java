@@ -21,6 +21,9 @@ import com.dmitrymalkovich.android.xyzreader.R;
 import com.dmitrymalkovich.android.xyzreader.data.ArticleLoader;
 import com.dmitrymalkovich.android.xyzreader.data.ItemsContract;
 
+/**
+ * fixme - cursor adapter in recyclerview
+ */
 public class ArticleListAdapter extends CursorRecyclerViewAdapter<ArticleListAdapter.ViewHolder> {
 
     public ArticleListAdapter(Cursor cursor) {

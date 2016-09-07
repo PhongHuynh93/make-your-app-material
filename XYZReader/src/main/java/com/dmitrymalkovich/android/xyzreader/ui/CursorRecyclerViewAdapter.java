@@ -26,6 +26,8 @@ import android.support.v7.widget.RecyclerView;
  * for the CursorRecyclerViewApater.java code and idea.
  * <p>
  * Updated By: Dmitry Malkovich.
+ *
+ * fixme - cursor adapter base
  */
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
